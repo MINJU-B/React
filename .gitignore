@@ -1,1 +1,5 @@
 main.html
+my-app/node_modules
+my-app/public
+my-app/package-lock.json
+my-app/package.json

@@ -6,27 +6,36 @@
   <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <script type="text/babel">
-    function Btn({ text }) {
+    function Btn({ text, btnclick, bgcolor }) {
+      console.log({ text }, "Button clicked");
       return (
         <button
+          onClick={btnclick}
           style={{
-            backgroundColor: "blue",
+            backgroundColor: bgcolor,
             color: "white",
             padding: "10px 20px",
             border: "none",
             borderRadius: "5px",
+            fontsize: "16px",
           }}
         >
           {text}
         </button>
       );
     }
+    const MemoBtn = React.memo(Btn); // Btn 컴포넌트를 메모이제이션하여 불필요한 재렌더링 방지
     function App() {
+      const [label, setLabel] = React.useState("최근 7일");
+      const changeValue = () =>
+        setLabel(label === "최근 7일" ? "최근 6개월" : "최근 7일"); // 버튼 클릭 시 value 변수의 값을 "최근 6개월"로 변경
       return (
         <div>
-          <Btn text="commit" />
-          <Btn text="cancel" />
+          <MemoBtn text={label} btnclick={changeValue} bgcolor={"green"} />
+          <div></div>
+          <MemoBtn text="새로고침" bgcolor={"silver"} />
         </div>
       );
     }
